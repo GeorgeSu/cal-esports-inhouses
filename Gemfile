@@ -2,9 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'rails', '4.2.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,8 +21,11 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem "omniauth-google-oauth2", "~> 0.2.1" #gmail gem?
+gem "figaro" # heroku gem?
+
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -32,16 +33,36 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'simplecov', :require => false, :group => :test
+
+group :test do
+  gem 'simplecov', :require => false
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels' # basic imperative step defs
+  gem 'autotest-rails'
+  gem 'factory_girl_rails' # if using FactoryGirl
+  gem 'metric_fu'        # collect code metrics
+  gem 'codeclimate-test-reporter', '0.6.0', require: nil
+  gem 'capybara-screenshot'
+  gem 'email_spec'
+end
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'sqlite3' # Use sqlite3 as the database for Active Record
   gem 'byebug'
+  gem 'jasmine-rails' # if you plan to use JavaScript/CoffeeScript
+  gem 'database_cleaner', '1.4.1' # required by Cucumber
+  gem 'capybara', '2.10.0'
+  gem 'launchy'
+  gem 'rspec-rails', '3.4.2'
+  gem 'ZenTest', '4.11.1'
+  gem 'clockwork'
+  gem 'mail'
 end
 
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+group :production do
+  gem 'pg'
+  gem 'clockwork'
+  gem 'mail'
+  # gem 'rails_12factor' #Only use when Heroku gives mysterious 500 errors, else it will flood your logs
 end
-
